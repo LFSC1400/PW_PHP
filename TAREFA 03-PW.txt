@@ -1,0 +1,100 @@
+TAREFA 03-PW
+
+create DATABASE tarefa3
+
+create table categoria(
+id int primary key,
+nome varchar(100),
+informações text(100)
+)
+
+create table clientes(
+id int primary key,
+nome varchar(100),
+email text(100)
+)
+
+create table fornecedor(
+id int primary key,
+nome varchar(100),
+cidade text(100)
+)
+
+DELIMITER $$
+
+CREATE PROCEDURE salvar_categoria(
+    IN var_id INT,
+    IN var_nome VARCHAR(100),
+    IN var_info TEXT
+)
+BEGIN
+    IF EXISTS (SELECT id FROM categoria WHERE id = var_id) THEN
+    
+        UPDATE categoria
+        SET nome = var_nome,
+            informacoes = var_info
+        WHERE id = var_id;
+        
+    ELSE
+    
+        INSERT INTO categoria (nome, informacoes)
+        VALUES (var_nome, var_info);
+        
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE salvar_clientes(
+    IN var_id INT,
+    IN var_nome VARCHAR(100),
+    IN var_email TEXT
+)
+BEGIN
+    IF EXISTS (SELECT id FROM clientes WHERE id = var_id) THEN
+    
+        UPDATE categoria
+        SET nome = var_nome,
+            email = var_email
+        WHERE id = var_id;
+        
+    ELSE
+    
+        INSERT INTO clientes (nome, email)
+        VALUES (var_nome, var_email);
+        
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE salvar_fornecedor(
+    IN var_id INT,
+    IN var_nome VARCHAR(100),
+    IN var_cidade TEXT
+)
+BEGIN
+    IF EXISTS (SELECT id FROM fornecedor WHERE id = var_id) THEN
+    
+        UPDATE categoria
+        SET nome = var_nome,
+            cidade = var_cidade
+        WHERE id = var_id;
+        
+    ELSE
+    
+        INSERT INTO fornecedor (nome, cidade)
+        VALUES (var_nome, var_cidade);
+        
+    END IF;
+END$$
+
+DELIMITER ;
